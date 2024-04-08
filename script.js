@@ -137,7 +137,8 @@ encodeBtn.addEventListener("click", () => {
   let hfTree = message.buildHuffmanTree();
   let encodedData = message.encode();
   encodedMessege.textContent = encodedData;
-  comparedRes.textContent = `[ ${HuffmanEncoding.compare(inputMessage.value, encodedData)[0]}bit → ${HuffmanEncoding.compare(inputMessage.value, encodedData)[1]}bit]`;
+  let comparision = HuffmanEncoding.compare(inputMessage.value, encodedData);
+  comparedRes.textContent = `[ ${comparision[0]}bit → ${comparision[1]}bit]`;
   huffmanTree.textContent = JSON.stringify(hfTree);
 
 });
