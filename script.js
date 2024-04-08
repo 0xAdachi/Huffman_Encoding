@@ -107,12 +107,23 @@ class HuffmanEncoding {
 
     return decodedText;
   }
+
+  static compare(str, code) {
+    let bitCount = 0;
+    for (let _char in str) bitCount += 8;
+    
+    let encodeBit = 0;
+    for (let _bit in code) encodeBit++;
+
+    return [bitCount, encodeBit];
+  }
 }
 
 // ### HTML element references ### //
 const inputMessage = document.getElementById("input-message");
 const encodeBtn = document.getElementById("encode-btn");
 const encodedMessege = document.getElementById("encoded-text");
+const comparedRes = document.getElementById('compare');
 const huffmanTree = document.getElementById("huffman-tree");
 const inputEncode = document.getElementById("input-encode");
 const inputHFTree = document.getElementById("input-hf-tree");
@@ -126,7 +137,9 @@ encodeBtn.addEventListener("click", () => {
   let hfTree = message.buildHuffmanTree();
   let encodedData = message.encode();
   encodedMessege.textContent = encodedData;
-  huffmanTree.textContent = JSON.stringify(hfTree)
+  comparedRes.textContent = `[ ${HuffmanEncoding.compare(inputMessage.value, encodedData)[0]}bit → ${HuffmanEncoding.compare(inputMessage.value, encodedData)[1]}bit]`;
+  huffmanTree.textContent = JSON.stringify(hfTree);
+
 });
 
 encodedMessege.addEventListener("click", () => {
@@ -143,7 +156,7 @@ huffmanTree.addEventListener("click", () => {
 decodeBtn.addEventListener("click", () => {
   let encodedText = inputEncode.value;
   let rootNode = JSON.parse(inputHFTree.value);
-  let decodedText = HuffmanEncoding.decode(encodedText, rootNode)
+  let decodedText = HuffmanEncoding.decode(encodedText, rootNode);
   decodedMessege.textContent = decodedText;
 });
 
